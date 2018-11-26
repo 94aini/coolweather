@@ -202,10 +202,29 @@ public class WeatherActivity extends AppCompatActivity {
             TextView infoText = (TextView)view.findViewById(R.id.info_text);
             TextView maxText = (TextView)view.findViewById(R.id.max_text);
             TextView minText = (TextView)view.findViewById(R.id.min_text);
+            ImageView imageView = (ImageView)view.findViewById(R.id.weather_pic);
             dateText.setText(forecast.date);
             infoText.setText(forecast.more.info);
-            maxText.setText(forecast.temperature.max);
-            minText.setText(forecast.temperature.min);
+            maxText.setText(forecast.temperature.max+"℃");
+            minText.setText(forecast.temperature.min+"℃");
+            String resquestWeatherUrl ="http://192.168.1.100:442/weather/128/" ;
+            switch (forecast.more.info){
+                case "晴":
+                    Glide.with(this).load(resquestWeatherUrl+"sun.png").into(imageView);
+                    break;
+                case "多云":
+                   Glide.with(this).load(resquestWeatherUrl+"cloud.png").into(imageView);
+                    break;
+                case "小雨":
+                   Glide.with(this).load(resquestWeatherUrl+"rain.png").into(imageView);
+                    break;
+                case "阴":
+                   Glide.with(this).load(resquestWeatherUrl+"shade.png").into(imageView);
+                    break;
+                    default:
+                        break;
+            }
+
             forecastLayout.addView(view);
         }
 
@@ -248,10 +267,5 @@ public class WeatherActivity extends AppCompatActivity {
                 });
             }
         });
-
-
-
-
-
     }
 }
