@@ -50,6 +50,8 @@ public class WeatherActivity extends AppCompatActivity {
 
     private TextView pm25Text;
 
+    private TextView qltText;
+
     private TextView comfortText;
 
     private TextView carWashText;
@@ -85,12 +87,14 @@ public class WeatherActivity extends AppCompatActivity {
         forecastLayout = (LinearLayout)findViewById(R.id.forecast_layout);
         aqiText = (TextView)findViewById(R.id.api_text);
         pm25Text = (TextView)findViewById(R.id.pm25_text);
+        qltText = (TextView)findViewById(R.id.weather_qlt);
         comfortText = (TextView)findViewById(R.id.comfort_text);
         carWashText = (TextView)findViewById(R.id.car_wash_text);
         sportText = (TextView)findViewById(R.id.sport_text);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
         navButton = (Button)findViewById(R.id.nav_button);
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,19 +211,18 @@ public class WeatherActivity extends AppCompatActivity {
             infoText.setText(forecast.more.info);
             maxText.setText(forecast.temperature.max+"℃");
             minText.setText(forecast.temperature.min+"℃");
-            String resquestWeatherUrl ="http://192.168.1.100:442/weather/128/" ;
             switch (forecast.more.info){
                 case "晴":
-                    Glide.with(this).load(resquestWeatherUrl+"sun.png").into(imageView);
+                    Glide.with(this).load(R.drawable.sun).into(imageView);
                     break;
                 case "多云":
-                   Glide.with(this).load(resquestWeatherUrl+"cloud.png").into(imageView);
+                   Glide.with(this).load(R.drawable.cloud).into(imageView);
                     break;
                 case "小雨":
-                   Glide.with(this).load(resquestWeatherUrl+"rain.png").into(imageView);
+                   Glide.with(this).load(R.drawable.rain).into(imageView);
                     break;
                 case "阴":
-                   Glide.with(this).load(resquestWeatherUrl+"shade.png").into(imageView);
+                   Glide.with(this).load(R.drawable.cloud).into(imageView);
                     break;
                     default:
                         break;
@@ -231,6 +234,7 @@ public class WeatherActivity extends AppCompatActivity {
         if(weather.aqi!=null){
             aqiText.setText(weather.aqi.city.aqi);
             pm25Text.setText(weather.aqi.city.pm25);
+            qltText.setText(weather.aqi.city.qlty);
         }
 
         String comfort = "舒服度"+weather.suggestion.comfort.info;
